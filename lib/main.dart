@@ -30,40 +30,42 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String url = "";
+  late String _url;
   dynamic previewData;
+
+  @override
+  void initState() {
+    _url = "";
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              onChanged: (String value) {
-                setState(() {
-                  url = value;
-                });
-              },
-            ),
-            url.isEmpty
-                ? Container()
-                : AnyLinkPreview(
-                    link: url,
-                    displayDirection: UIDirection.uiDirectionHorizontal,
-                    backgroundColor: Colors.grey[300],
-                    errorWidget: Container(
-                      color: Colors.grey[300],
-                      child: const Text('Oops!'),
+        appBar: AppBar(title: Text(widget.title)),
+        body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+              TextField(
+                onChanged: (String value) {
+                  setState(() {
+                    _url = value;
+                  });
+                },
+              ),
+              Text("URL: $_url"),
+              _url.isEmpty
+                  ? Container()
+                  : AnyLinkPreview(
+                      link: _url,
+                      displayDirection: UIDirection.uiDirectionHorizontal,
+                      backgroundColor: Colors.grey[300],
+                      errorWidget: Container(
+                        color: Colors.grey[300],
+                        child: const Text('Oops!'),
+                      ),
                     ),
-                  ),
-          ],
-        ),
-      ),
-    );
+            ])));
   }
 }
